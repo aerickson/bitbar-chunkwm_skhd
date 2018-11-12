@@ -14,12 +14,12 @@ export PATH=/usr/local/bin:$PATH
 CURRENT_MODE=$(chunkc tiling::query --desktop mode)
 case $CURRENT_MODE in
   'bsp')
-    MODE_TOGGLE='monocle'
+    MODE_TOGGLE='float'
     MODE_EMOJI='⊞'
     ;;
-  'monocle')
+  'float')
     MODE_TOGGLE='bsp'
-    MODE_EMOJI='⧈'
+    MODE_EMOJI='⧉'
     ;;
 esac
 
