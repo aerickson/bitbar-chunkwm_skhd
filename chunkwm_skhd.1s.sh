@@ -11,11 +11,12 @@
 # For skhd, see: https://github.com/koekeishiya/skhd
 
 export PATH=/usr/local/bin:$PATH
-CURRENT_MODE=$(chunkc tiling::query --desktop mode)
-# TODO: if not running only show options that make sense?
+CURRENT_MODE=$(chunkc tiling::query --desktop mode  2>&1)
 case $CURRENT_MODE in
-  'failed')
+  'chunkc: connection failed!')
     CHUNK_STATE='off'
+    MODE_TOGGLE='none'
+    MODE_EMOJI="⧄"
     ;;
   'bsp')
     CHUNK_STATE='on'
@@ -29,6 +30,9 @@ case $CURRENT_MODE in
     ;;
 esac
 
+#
+# command handlers
+# 
 if [[ "$1" = "stop" ]]; then
   brew services stop chunkwm
   brew services stop skhd
@@ -48,26 +52,32 @@ elif [[ "$1" = "toggle" ]]; then
 elif [[ "$1" = "equalize" ]]; then
   chunkc tiling::desktop --equalize
 else
+  #
+  # display block
+  #
   if [[ "$CHUNK_STATE" = "on" ]]; then
-    echo "$(chunkc tiling::query --desktop id):${MODE_EMOJI} | length=5"
+    echo "c ${MODE_EMOJI}"
+    # echo "c ${MODE_EMOJI}:$(chunkc tiling::query --desktop id) | length=5"
   else
-    echo "chunkwm"
+    echo "c ${MODE_EMOJI}"
   fi
   echo "---"
-  echo "Toggle layout | bash='$0' param1=toggle terminal=false"
-  echo "Equalize windows | bash='$0' param1=equalize terminal=false"
-  echo "Enable focus follows mouse | bash='$0' param1=efocus terminal=false" 
-  echo "Disable focus follows mouse | bash='$0' param1=dfocus terminal=false"
-  # if [[ "$CHUNK_STATE" = "on" ]]; then
-  #   echo "---"
-  # fi
-  echo "---"
-  echo "STATE: $CHUNK_STATE"
-  echo "Restart chunkwm | bash='$0' param1=restart_chunk terminal=false"
   if [[ "$CHUNK_STATE" = "on" ]]; then
-      echo "Stop chunkwm | bash='$0' param1=stop_chunk terminal=false"  
+    # TODO: selector for all 3 modes?
+    echo "Toggle layout | bash='$0' param1=toggle terminal=false"
+    echo "Equalize windows | bash='$0' param1=equalize terminal=false"
+    # TODO: figure out how to make this a toggle (add query command or detect somehow)
+    echo "Enable focus follows mouse | bash='$0' param1=efocus terminal=false" 
+    echo "Disable focus follows mouse | bash='$0' param1=dfocus terminal=false"
+    echo "---"
   fi
-  echo "---"
-  echo "Restart chunkwm & skhd | bash='$0' param1=restart terminal=false"
-  echo "Stop chunkwm & skhd | bash='$0' param1=stop terminal=false"
+
+  echo "chunkwm: $CHUNK_STATE"
+  if [[ "$CHUNK_STATE" = "on" ]]; then
+    echo "Restart chunkwm | bash='$0' param1=restart_chunk terminal=false"
+    echo "Stop chunkwm | bash='$0' param1=stop_chunk terminal=false"
+  else
+    echo "Start chunkwm | bash='$0' param1=restart_chunk terminal=false"
+  fi
+
 fi
