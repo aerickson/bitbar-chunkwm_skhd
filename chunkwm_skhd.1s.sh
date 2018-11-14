@@ -14,20 +14,20 @@ export PATH=/usr/local/bin:$PATH
 CURRENT_MODE=$(chunkc tiling::query --desktop mode  2>&1)
 case $CURRENT_MODE in
   'chunkc: connection failed!')
-    CHUNK_STATE='off'
+    CHUNK_STATE='stopped'
     MODE=''
     MODE_TOGGLE='none'
     MODE_EMOJI="⧄"
     ;;
   'bsp')
-    CHUNK_STATE='on'
+    CHUNK_STATE='running'
     MODE='bsp'
     MODE_TOGGLE='float'
     MODE_EMOJI='⊞'
     ;;
   'float')
     MODE='float'
-    CHUNK_STATE='on'
+    CHUNK_STATE='running'
     MODE_TOGGLE='bsp'
     MODE_EMOJI='⧉'
     ;;
@@ -58,7 +58,7 @@ else
   #
   # display block
   #
-  if [[ "$CHUNK_STATE" = "on" ]]; then
+  if [[ "$CHUNK_STATE" = "running" ]]; then
     echo "c ${MODE_EMOJI}"
     # TODO: hide display of desktop id behind flag?
     # echo "c ${MODE_EMOJI}:$(chunkc tiling::query --desktop id) | length=5"
@@ -66,7 +66,7 @@ else
     echo "c ${MODE_EMOJI}"
   fi
   echo "---"
-  if [[ "$CHUNK_STATE" = "on" ]]; then
+  if [[ "$CHUNK_STATE" = "running" ]]; then
     # TODO: selector for all 3 modes?
     echo "Desktop Mode: ${MODE}"
     echo "Toggle Layout | bash='$0' param1=toggle terminal=false"
@@ -79,7 +79,7 @@ else
   fi
 
   echo "chunkwm: $CHUNK_STATE"
-  if [[ "$CHUNK_STATE" = "on" ]]; then
+  if [[ "$CHUNK_STATE" = "running" ]]; then
     echo "Restart chunkwm | bash='$0' param1=restart_chunk terminal=false"
     echo "Stop chunkwm | bash='$0' param1=stop_chunk terminal=false"
   else
