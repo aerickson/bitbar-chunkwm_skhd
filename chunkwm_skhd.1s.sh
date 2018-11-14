@@ -60,6 +60,7 @@ else
   #
   if [[ "$CHUNK_STATE" = "on" ]]; then
     echo "c ${MODE_EMOJI}"
+    # TODO: hide display of desktop id behind flag?
     # echo "c ${MODE_EMOJI}:$(chunkc tiling::query --desktop id) | length=5"
   else
     echo "c ${MODE_EMOJI}"
@@ -67,9 +68,9 @@ else
   echo "---"
   if [[ "$CHUNK_STATE" = "on" ]]; then
     # TODO: selector for all 3 modes?
-    echo "desktop mode: ${MODE}"
-    echo "Toggle layout | bash='$0' param1=toggle terminal=false"
-    echo "Equalize windows | bash='$0' param1=equalize terminal=false"
+    echo "Desktop Mode: ${MODE}"
+    echo "Toggle Layout | bash='$0' param1=toggle terminal=false"
+    echo "Equalize Windows | bash='$0' param1=equalize terminal=false"
     # TODO: figure out how to make this a toggle (add query command or detect somehow)
     echo "Focus Follows Mouse"
     echo "--Enable FFM | bash='$0' param1=efocus terminal=false" 
@@ -84,5 +85,6 @@ else
   else
     echo "Start chunkwm | bash='$0' param1=restart_chunk terminal=false"
   fi
+  # TODO: add back in control of skhd? behind a flag or option?
 
 fi
