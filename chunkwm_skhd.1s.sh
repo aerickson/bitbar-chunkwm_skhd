@@ -12,12 +12,18 @@
 
 export PATH=/usr/local/bin:$PATH
 CURRENT_MODE=$(chunkc tiling::query --desktop mode)
+# TODO: if not running only show options that make sense?
 case $CURRENT_MODE in
+  'failed')
+    CHUNK_STATE='off'
+    ;;
   'bsp')
+    CHUNK_STATE='on'
     MODE_TOGGLE='float'
     MODE_EMOJI='⊞'
     ;;
   'float')
+    CHUNK_STATE='on'
     MODE_TOGGLE='bsp'
     MODE_EMOJI='⧉'
     ;;
@@ -26,7 +32,11 @@ esac
 if [[ "$1" = "stop" ]]; then
   brew services stop chunkwm
   brew services stop skhd
-elif [[ "$1" = "restart" ]]; then
+elif [[ "$1" = "stop_chunk" ]]; then
+  brew services stop chunkwm
+elif [[ "$1" = "restart_chunk" ]]; then
+  brew services restart chunkwm
+elif [[ "$1" = "restart_both" ]]; then
   brew services restart chunkwm
   brew services restart skhd
 elif [[ "$1" = "dfocus" ]]; then
@@ -38,12 +48,25 @@ elif [[ "$1" = "toggle" ]]; then
 elif [[ "$1" = "equalize" ]]; then
   chunkc tiling::desktop --equalize
 else
-  echo "$(chunkc tiling::query --desktop id):${MODE_EMOJI} | length=5"
+  if [[ "$CHUNK_STATE" = "on" ]]; then
+    echo "$(chunkc tiling::query --desktop id):${MODE_EMOJI} | length=5"
+  else
+    echo "chunkwm"
+  fi
   echo "---"
   echo "Toggle layout | bash='$0' param1=toggle terminal=false"
   echo "Equalize windows | bash='$0' param1=equalize terminal=false"
   echo "Enable focus follows mouse | bash='$0' param1=efocus terminal=false" 
   echo "Disable focus follows mouse | bash='$0' param1=dfocus terminal=false"
+  # if [[ "$CHUNK_STATE" = "on" ]]; then
+  #   echo "---"
+  # fi
+  echo "---"
+  echo "STATE: $CHUNK_STATE"
+  echo "Restart chunkwm | bash='$0' param1=restart_chunk terminal=false"
+  if [[ "$CHUNK_STATE" = "on" ]]; then
+      echo "Stop chunkwm | bash='$0' param1=stop_chunk terminal=false"  
+  fi
   echo "---"
   echo "Restart chunkwm & skhd | bash='$0' param1=restart terminal=false"
   echo "Stop chunkwm & skhd | bash='$0' param1=stop terminal=false"
