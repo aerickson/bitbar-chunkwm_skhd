@@ -15,15 +15,18 @@ CURRENT_MODE=$(chunkc tiling::query --desktop mode  2>&1)
 case $CURRENT_MODE in
   'chunkc: connection failed!')
     CHUNK_STATE='off'
+    MODE=''
     MODE_TOGGLE='none'
     MODE_EMOJI="⧄"
     ;;
   'bsp')
     CHUNK_STATE='on'
+    MODE='bsp'
     MODE_TOGGLE='float'
     MODE_EMOJI='⊞'
     ;;
   'float')
+    MODE='float'
     CHUNK_STATE='on'
     MODE_TOGGLE='bsp'
     MODE_EMOJI='⧉'
@@ -64,11 +67,13 @@ else
   echo "---"
   if [[ "$CHUNK_STATE" = "on" ]]; then
     # TODO: selector for all 3 modes?
+    echo "desktop mode: ${MODE}"
     echo "Toggle layout | bash='$0' param1=toggle terminal=false"
     echo "Equalize windows | bash='$0' param1=equalize terminal=false"
     # TODO: figure out how to make this a toggle (add query command or detect somehow)
-    echo "Enable focus follows mouse | bash='$0' param1=efocus terminal=false" 
-    echo "Disable focus follows mouse | bash='$0' param1=dfocus terminal=false"
+    echo "Focus Follows Mouse"
+    echo "--Enable FFM | bash='$0' param1=efocus terminal=false" 
+    echo "--Disable FFM | bash='$0' param1=dfocus terminal=false"
     echo "---"
   fi
 
