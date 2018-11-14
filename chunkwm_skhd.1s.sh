@@ -29,6 +29,10 @@ if [[ "$1" = "stop" ]]; then
 elif [[ "$1" = "restart" ]]; then
   brew services restart chunkwm
   brew services restart skhd
+elif [[ "$1" = "dfocus" ]]; then
+  chunkc core::unload ffm.so
+elif [[ "$1" = "efocus" ]]; then
+  chunkc core::load ffm.so
 elif [[ "$1" = "toggle" ]]; then
   chunkc tiling::desktop --layout $MODE_TOGGLE
 elif [[ "$1" = "equalize" ]]; then
@@ -38,6 +42,8 @@ else
   echo "---"
   echo "Toggle layout | bash='$0' param1=toggle terminal=false"
   echo "Equalize windows | bash='$0' param1=equalize terminal=false"
+  echo "Enable focus follows mouse | bash='$0' param1=efocus terminal=false" 
+  echo "Disable focus follows mouse | bash='$0' param1=dfocus terminal=false"
   echo "---"
   echo "Restart chunkwm & skhd | bash='$0' param1=restart terminal=false"
   echo "Stop chunkwm & skhd | bash='$0' param1=stop terminal=false"
