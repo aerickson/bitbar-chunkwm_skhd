@@ -62,8 +62,10 @@ elif [[ "$1" = "efocus" ]]; then
   chunkc core::load ffm.so
 elif [[ "$1" = "toggle" ]]; then
   chunkc tiling::desktop --layout $MODE_TOGGLE
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 elif [[ "$1" = "equalize" ]]; then
   chunkc tiling::desktop --equalize
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 else
   #
   # display block
