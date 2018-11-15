@@ -35,17 +35,27 @@ esac
 
 #
 # command handlers
-# 
+#
+SLEEP_TIME=0.5 
 if [[ "$1" = "stop" ]]; then
   brew services stop chunkwm
   brew services stop skhd
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 elif [[ "$1" = "stop_chunk" ]]; then
   brew services stop chunkwm
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 elif [[ "$1" = "restart_chunk" ]]; then
   brew services restart chunkwm
+  # chunkwm isn't ready for queries right away after restarting, wait a bit
+  sleep $SLEEP_TIME
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+elif [[ "$1" = "start_chunk" ]]; then
+  brew services start chunkwm
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 elif [[ "$1" = "restart_both" ]]; then
   brew services restart chunkwm
   brew services restart skhd
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
 elif [[ "$1" = "dfocus" ]]; then
   chunkc core::unload ffm.so
 elif [[ "$1" = "efocus" ]]; then
@@ -59,9 +69,9 @@ else
   # display block
   #
   if [[ "$CHUNK_STATE" = "running" ]]; then
-    echo "c ${MODE_EMOJI}"
+    #echo "c ${MODE_EMOJI}"
     # TODO: hide display of desktop id behind flag?
-    # echo "c ${MODE_EMOJI}:$(chunkc tiling::query --desktop id) | length=5"
+    echo "c ${MODE_EMOJI} $(chunkc tiling::query --desktop id) | length=5"
   else
     echo "c ${MODE_EMOJI}"
   fi
@@ -83,7 +93,7 @@ else
     echo "Restart chunkwm | bash='$0' param1=restart_chunk terminal=false"
     echo "Stop chunkwm | bash='$0' param1=stop_chunk terminal=false"
   else
-    echo "Start chunkwm | bash='$0' param1=restart_chunk terminal=false"
+    echo "Start chunkwm | bash='$0' param1=start_chunk terminal=false"
   fi
   # TODO: add back in control of skhd? behind a flag or option?
 
