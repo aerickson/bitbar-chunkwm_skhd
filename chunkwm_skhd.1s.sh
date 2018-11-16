@@ -40,6 +40,8 @@ case $CURRENT_MODE in
     ;;
 esac
 
+# TODO: see if ffm plugin is loaded so we can have single FFM menu entry
+
 #
 # command handlers
 #
