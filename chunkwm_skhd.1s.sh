@@ -10,6 +10,10 @@
 # Info about chunkwm, see: https://github.com/koekeishiya/chunkwm
 # For skhd, see: https://github.com/koekeishiya/skhd
 
+function refreshBB {
+  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+}
+
 export PATH=/usr/local/bin:$PATH
 CURRENT_MODE=$(chunkc tiling::query --desktop mode  2>&1)
 case $CURRENT_MODE in
@@ -31,41 +35,46 @@ case $CURRENT_MODE in
     MODE_TOGGLE='bsp'
     MODE_EMOJI='⧉'
     ;;
+  *)
+    CHUNK_STATE='stopped'
+    ;;
 esac
 
 #
 # command handlers
 #
-SLEEP_TIME=0.5 
+# SLEEP_TIME=0.5
+SLEEP_TIME=1
 if [[ "$1" = "stop" ]]; then
   brew services stop chunkwm
   brew services stop skhd
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
-elif [[ "$1" = "stop_chunk" ]]; then
-  brew services stop chunkwm
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+  refreshBB
+elif [[ "$1" = "start_chunk" ]]; then
+  brew services start chunkwm
+  sleep $SLEEP_TIME
+  refreshBB
 elif [[ "$1" = "restart_chunk" ]]; then
   brew services restart chunkwm
   # chunkwm isn't ready for queries right away after restarting, wait a bit
-  sleep $SLEEP_TIME
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
-elif [[ "$1" = "start_chunk" ]]; then
-  brew services start chunkwm
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+  # sleep $SLEEP_TIME
+  refreshBB
+elif [[ "$1" = "stop_chunk" ]]; then
+  brew services stop chunkwm
+  refreshBB
 elif [[ "$1" = "restart_both" ]]; then
   brew services restart chunkwm
   brew services restart skhd
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+  refreshBB
 elif [[ "$1" = "dfocus" ]]; then
   chunkc core::unload ffm.so
 elif [[ "$1" = "efocus" ]]; then
   chunkc core::load ffm.so
 elif [[ "$1" = "toggle" ]]; then
   chunkc tiling::desktop --layout $MODE_TOGGLE
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+  refreshBB
 elif [[ "$1" = "equalize" ]]; then
   chunkc tiling::desktop --equalize
-  open -g 'bitbar://refreshPlugin?name=chunkwm.*?.sh'
+  refreshBB
 else
   #
   # display block
