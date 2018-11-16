@@ -3,6 +3,7 @@ A simple bitbar for [chunkwm](https://github.com/koekeishiya/chunkwm)/[skhd](htt
 
 ## changes by aerickson
 
+- toggles between bsp and float (vs bsp and monocle)
 - indicates if chunkwm is running or not
 - indicates current desktop mode
 - allows togging of Focus Follows Mouse (FFM)
