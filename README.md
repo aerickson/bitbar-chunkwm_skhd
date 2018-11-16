@@ -5,12 +5,13 @@ A simple bitbar for [chunkwm](https://github.com/koekeishiya/chunkwm)/[skhd](htt
 
 - indicates if chunkwm is running or not
 - indicates current desktop mode
+- allows togging of Focus Follows Mouse (FFM)
 - designed to support https://github.com/koekeishiya/chunkwm/pull/519
   - issues update requests when commands are run
 - focus more on chunkwm (vs skhd)
   - may add back as configuration option
 
-![current look](https://content.evernote.com/shard/s74/sh/4181b659-9e1b-494d-aebc-a7b825760a10/e876c91950b088e4/res/6403b129-9733-4500-bf1f-215046131ead/skitch.png)
+![current look](https://www.evernote.com/shard/s74/sh/7a33ff9c-83b6-4068-a83b-18d90dfbcf1b/d4282ec089c8689b/res/7caf8e76-16cd-4d0e-8c95-263aea1ce517/skitch.png)
 
 ### installation
 
