@@ -82,7 +82,8 @@ else
   if [[ "$CHUNK_STATE" = "running" ]]; then
     #echo "c ${MODE_EMOJI}"
     # TODO: hide display of desktop id behind flag?
-    echo "c ${MODE_EMOJI} $(chunkc tiling::query --desktop id) | length=5"
+    #echo "c ${MODE_EMOJI} $(chunkc tiling::query --desktop id) | length=5"
+    echo "c ${MODE_EMOJI} $(chunkc tiling::query --desktop id)"
   else
     echo "c ${MODE_EMOJI}"
   fi
