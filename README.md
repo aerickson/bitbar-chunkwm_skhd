@@ -15,6 +15,9 @@ A simple bitbar for [chunkwm](https://github.com/koekeishiya/chunkwm)/[skhd](htt
 
 ### installation
 
+- use latest beta of bitbar
+  - https://github.com/matryer/bitbar/releases/tag/v2.0.0-beta10
+
 - if using https://github.com/koekeishiya/chunkwm/pull/519:
   - symlink into your bitbar plugin directory as `chunkwm.5m.sh`
 - otherwise
