@@ -41,6 +41,15 @@ case $CURRENT_MODE in
 esac
 
 # TODO: see if ffm plugin is loaded so we can have single FFM menu entry
+PLUGINS_LOADED=$(chunkc core::query --plugins loaded  2>&1)
+case $PLUGINS_LOADED in
+  *ffm.so*)
+    FFM_ENABLED='yes'
+    ;;
+  *)
+    FFM_ENABLED='no'
+    ;;
+esac
 
 #
 # command handlers
@@ -69,8 +78,12 @@ elif [[ "$1" = "restart_both" ]]; then
   refreshBB
 elif [[ "$1" = "dfocus" ]]; then
   chunkc core::unload ffm.so
+  sleep 0.2
+  refreshBB
 elif [[ "$1" = "efocus" ]]; then
   chunkc core::load ffm.so
+  sleep 0.2
+  refreshBB
 elif [[ "$1" = "toggle" ]]; then
   chunkc tiling::desktop --layout $MODE_TOGGLE
   refreshBB
@@ -95,10 +108,11 @@ else
     echo "Desktop Mode: ${MODE}"
     echo "Toggle Layout | bash='$0' param1=toggle terminal=false"
     echo "Equalize Windows | bash='$0' param1=equalize terminal=false"
-    # TODO: figure out how to make this a toggle (add query command or detect somehow)
-    echo "Focus Follows Mouse"
-    echo "--Enable FFM | bash='$0' param1=efocus terminal=false" 
-    echo "--Disable FFM | bash='$0' param1=dfocus terminal=false"
+    if [[ "$FFM_ENABLED" = "yes" ]]; then
+      echo "Disable FFM | bash='$0' param1=dfocus terminal=false"
+    else
+      echo "Enable FFM | bash='$0' param1=efocus terminal=false" 
+    fi
     echo "---"
   fi
 
