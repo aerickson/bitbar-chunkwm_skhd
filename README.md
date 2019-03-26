@@ -11,7 +11,7 @@ A simple bitbar for [chunkwm](https://github.com/koekeishiya/chunkwm)/[skhd](htt
   - issues update requests when commands are run
 - focus more on chunkwm (vs skhd)
   - may add back as configuration option
-
+- single entry ffm toggling (requires https://github.com/koekeishiya/chunkwm/pull/540)
 
 ### installation
 
