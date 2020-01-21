@@ -146,12 +146,12 @@ else
   fi
 
   echo "yabai: $CHUNK_STATE"
-  # if [[ "$CHUNK_STATE" = "running" ]]; then
-  echo "Restart yabai | bash='$0' param1=restart_chunk terminal=false"
-  #   echo "Stop yabai | bash='$0' param1=stop_chunk terminal=false"
-  # else
-  #   echo "Start yabai | bash='$0' param1=start_chunk terminal=false"
-  # fi
+  if [[ "$CHUNK_STATE" = "running" ]]; then
+    echo "Restart yabai | bash='$0' param1=restart_chunk terminal=false"
+    echo "Stop yabai | bash='$0' param1=stop_chunk terminal=false"
+  else
+    echo "Start yabai | bash='$0' param1=start_chunk terminal=false"
+  fi
   # TODO: add back in control of skhd? behind a flag or option?
 
 fi
