@@ -100,12 +100,19 @@ elif [[ "$1" = "efocus" ]]; then
   refreshBB
 elif [[ "$1" = "toggle" ]]; then
   yabai -m space --layout $MODE_TOGGLE
+  # TODO: change appropriately before the next update cycle
+  # MODE_TOGGLE='bsp'
+  # MODE_EMOJI='⧉'
+
+  # MODE_TOGGLE='float'
+  # MODE_EMOJI='⊞'
+
   refreshBB
-elif [[ "$1" = "bsp" ]]; then
-  yabai -m space --layout bsp
-  refreshBB
-elif [[ "$1" = "float" ]]; then
-  yabai -m space --layout float
+# elif [[ "$1" = "bsp" ]]; then
+#   yabai -m space --layout bsp
+#   refreshBB
+# elif [[ "$1" = "float" ]]; then
+#   yabai -m space --layout float
   refreshBB  
 elif [[ "$1" = "equalize" ]]; then
   yabai tiling::desktop --equalize
