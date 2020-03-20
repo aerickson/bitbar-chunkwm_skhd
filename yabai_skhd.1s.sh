@@ -27,6 +27,7 @@ export PATH=/usr/local/bin:$PATH
 #   MODE_EMOJI="⧄"  
 # fi
 
+# VER=$(yabai --version)
 CURRENT_MODE=$(yabai -m query --spaces --space | jq .type  2>&1)
 case $CURRENT_MODE in
   'yabai: connection failed!')
@@ -55,15 +56,15 @@ case $CURRENT_MODE in
 esac
 
 # TODO: see if ffm plugin is loaded so we can have single FFM menu entry
-PLUGINS_LOADED=$(yabai core::query --plugins loaded  2>&1)
-case $PLUGINS_LOADED in
-  *ffm.so*)
-    FFM_ENABLED='yes'
-    ;;
-  *)
-    FFM_ENABLED='no'
-    ;;
-esac
+# PLUGINS_LOADED=$(yabai core::query --plugins loaded  2>&1)
+# case $PLUGINS_LOADED in
+#   *ffm.so*)
+#     FFM_ENABLED='yes'
+#     ;;
+#   *)
+#     FFM_ENABLED='no'
+#     ;;
+# esac
 
 #
 # command handlers
@@ -124,7 +125,7 @@ else
   if [[ "$CHUNK_STATE" = "running" ]]; then
     # echo "y ${MODE_EMOJI}"
     # TODO: hide display of desktop id behind flag?
-    echo "y ${MODE_EMOJI} $(yabai -m query --spaces --space | jq .index) | length=5"
+    echo "y ${MODE_EMOJI} $(yabai -m query --spaces --space | jq .index) | length=10"
     # echo "y ${MODE_EMOJI} $(yabai tiling::query --desktop id)"
   else
     echo "y ${MODE_EMOJI}"
